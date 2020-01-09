@@ -29,7 +29,7 @@ class UsersController extends Controller
 
         // 如果表单字段avatar不为false,那么调用ImageUploadHander
         if ($request->avatar) {
-            $result =$uploads->save($request->avatar, 'avatars', $user->id);
+            $result =$uploads->save($request->avatar, 'avatars', $user->id, 416);
             // 如图片处理逻辑中后缀名正常,将合并出的网站相对路径+完成文件名进行赋值给数据库avarat字段保存
             if ($result) {
                 $data['avatar'] = $result['path'];
