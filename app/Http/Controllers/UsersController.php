@@ -10,6 +10,11 @@ use App\Handlers\ImageUploadHandler;
 class UsersController extends Controller
 {
     //
+    public function __construct()
+    {
+        # code...
+        $this->middleware('auth', ['except' => ['show']]);
+    }
     public function show(User $user)
     {
         # code...
@@ -19,11 +24,13 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         # code...
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
     public function update(UserRequest $request, ImageUploadHandler $uploads, User $user)
     {
+        $this->authorize('update', $user);
         //  将表单数据全部赋值 $data 变量
         $data = $request->all();
 
